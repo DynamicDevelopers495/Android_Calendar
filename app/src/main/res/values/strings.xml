@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Calendar</string>
+    <string name="search_keyword">Search with a keyword</string>
+    <string name="button_search">Search</string>
+    <string name="button_new_appointment">New Appointment</string>
+    <string name="button_upcoming_events">Upcoming Events</string>
+</resources>
