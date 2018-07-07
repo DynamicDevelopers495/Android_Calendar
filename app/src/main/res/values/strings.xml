@@ -2,6 +2,17 @@
     <string name="app_name">Calendar</string>
     <string name="search_keyword">Search with a keyword</string>
     <string name="button_search">Search</string>
-    <string name="button_new_appointment">New Appointment</string>
-    <string name="button_upcoming_events">Upcoming Events</string>
+    <string name="button_new_appointment">NEW APPOINTMENT</string>
+    <string name="button_upcoming_events">UPCOMING EVENTS</string>
+    <string name="title_label">Please enter a title</string>
+    <string name="description_label">Please add some description</string>
+    <string name="button_add">Add</string>
+    <string name="date_label">Date</string>
+    <string name="time_label">Time</string>
+    <string name="button_every_day">Every day</string>
+    <string name="button_every_week">Every week</string>
+    <string name="button_every_month">Every month</string>
+    <string name="button_every_year">Every year</string>
+    <string name="textview">TextView</string>
+    <string name="button_refresh">Refresh</string>
 </resources>
