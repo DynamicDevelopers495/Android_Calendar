@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "com.example.user.calendar.MESSAGE";
     RequestQueue queue;
-    String dbURL, title, description, event_date;
+    String dbURL, title, description, event_date, time, recurring;
     HashMap<String, ArrayList<String>> results;
     TextView mTextViewResult;
 
@@ -71,14 +71,14 @@ public class MainActivity extends AppCompatActivity {
                     searchList.add(subKey.substring(0,key.indexOf(" ")));
                     subKey = subKey.substring(subKey.indexOf(" ") + 1);
                 }
-                if(key.length() != 0)
-                    searchList.add(key);
+                if(subKey.length() != 0)
+                    searchList.add(subKey);
             }
             else
                 searchList.add(key);
             for(int i = 0; i < list.size(); i++){
                 String s = "" + list.get(i);
-                String description = s.substring(0, s.lastIndexOf(" ")).toLowerCase();
+                String description = s.substring(0, s.indexOf(" ")).toLowerCase();
                 if(description.indexOf(" ") > 0){
                     searchList.add(description);
                     while(description.indexOf(" ") > 0) {
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                     searchList.add(description);
-                String event_date = s.substring(s.lastIndexOf(" ") + 1).toLowerCase();
+                String event_date = s.substring(s.indexOf(" ") + 1, s.lastIndexOf(" ")).toLowerCase();
                 if(event_date.indexOf("-") > 0){
                     searchList.add(event_date);
                     while(event_date.indexOf("-") > 0) {
@@ -102,6 +102,18 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                     searchList.add(event_date);
+                String event_time = s.substring(s.lastIndexOf(" ") + 1).toLowerCase();
+                if(event_time.indexOf(":") > 0){
+                    searchList.add(event_time);
+                    while(event_time.indexOf(":") > 0) {
+                        searchList.add(event_time.substring(0,event_time.indexOf(":")));
+                        event_time = event_time.substring(event_time.indexOf(":") + 1);
+                    }
+                    if(event_time.length() != 0)
+                        searchList.add(event_time);
+                }
+                else
+                    searchList.add(event_time);
                 if(searchList.contains(keyword))
                     result += key + " " + s + "\n";
             }
@@ -123,11 +135,16 @@ public class MainActivity extends AppCompatActivity {
                         title = appointment.getString("title");
                         description = appointment.getString("description");
                         event_date = appointment.getString("event_date");
+                        if(event_date.indexOf("T") > 0) {
+                            time = event_date.substring(event_date.indexOf("T")+1, event_date.lastIndexOf(":"));
+                            event_date = event_date.substring(0, event_date.indexOf("T"));
+                        }
+                        recurring = appointment.getString("recurring");
                         if(results.containsKey("title"))
-                            results.get(title).add(description + " " + event_date);
+                            results.get(title).add(description + " " + event_date + " " + time);
                         else{
                             ArrayList<String> list = new ArrayList<>();
-                            list.add(description + " " + event_date);
+                            list.add(description + " " + event_date + " " + time);
                             results.put(title, list);
                         }
                     }

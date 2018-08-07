@@ -7,12 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -20,14 +15,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class NewAppointmentActivity extends AppCompatActivity {
 
@@ -66,7 +56,7 @@ public class NewAppointmentActivity extends AppCompatActivity {
                     JSONObject eventObject = new JSONObject();
                     eventObject.put("title",title.getText().toString());
                     eventObject.put("description", description.getText().toString());
-                    eventObject.put("event_date", date.getText().toString()+time.getText().toString());
+                    eventObject.put("event_date", date.getText().toString() + "T" + time.getText().toString() + ":00.000Z");
                     String json = eventObject.toString();
 
                     byte[] outputInBytes = json.getBytes("UTF-8");
